@@ -1,14 +1,13 @@
 include(FetchContent)
 FetchContent_Declare(
   googletest
-  URL https://github.com/google/googletest/archive/609281088cfefc76f9d0ce82e1ff6c30cc3591e5.zip
+  GIT_REPOSITORY https://github.com/google/googletest
+  GIT_TAG 9d21db9e0a60a1ea61ec19331c9bc0dd33e907b1
 )
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)# highsextern)
+FetchContent_MakeAvailable(googletest)
 enable_testing()
-include_directories(${highsextern_INCLUDE_DIRS})
-
 # add_executable(
 #  perm_test
 #  perm_test.cpp
@@ -125,6 +124,16 @@ target_link_libraries(
 )
 
 add_executable(
+  dependence_test2
+  dependence_test2.cpp
+)
+target_link_libraries(
+  dependence_test2
+  gtest_main
+  LLVM
+)
+
+add_executable(
   edge_detection_test
   edge_detection_test.cpp
 )
@@ -134,16 +143,16 @@ target_link_libraries(
   LLVM
 )
 
-add_executable(
-  highs_test
-  highs_test.cpp
-)
-target_link_libraries(
-  highs_test
-  gtest_main
-  LLVM
-  libhighs
-)
+#add_executable(
+#  highs_test
+#  highs_test.cpp
+#)
+#target_link_libraries(
+#  highs_test
+#  gtest_main
+#  LLVM
+#  libhighs
+#)
 
 include(GoogleTest)
 gtest_discover_tests(compat_test)
@@ -157,4 +166,4 @@ gtest_discover_tests(linear_algebra_test)
 gtest_discover_tests(orthogonalize_test)
 gtest_discover_tests(dependence_test)
 gtest_discover_tests(edge_detection_test)
-gtest_discover_tests(highs_test)
+#gtest_discover_tests(highs_test)
